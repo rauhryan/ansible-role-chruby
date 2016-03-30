@@ -1,4 +1,5 @@
 ---
-- hosts: all
+- hosts: localhost
+  remote_user: root
   roles:
-    - { role: role_under_test, become: yes, ansible_roles_to_install: ['geerlingguy.java', 'geerlingguy.nginx'] }
+    - ansible-role-chruby
