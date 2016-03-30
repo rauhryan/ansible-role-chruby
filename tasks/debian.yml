@@ -1,0 +1,26 @@
+---
+- name: Download chruby
+  get_url:
+    url: http://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz
+    dest: /tmp/chruby-{{ chruby_version }}.tar.gz
+
+- name: Untar chruby
+  unarchive:
+    src: /tmp/chruby-{{ chruby_version }}.tar.gz
+    dest: /tmp/chruby-{{ chruby_version }}
+
+- name: Check if chruby is already installed
+  stat:
+    path: /usr/local/share/doc/chruby-{{ chruby_version }}
+  register: chruby_path
+
+- name: Run chruby install target
+  command: make install
+  args:
+    chdir: /tmp/chruby-{{ chruby_version }}
+  when: chruby_path.stat.exists == false
+
+- name: Deploy chruby autoload script
+  copy:
+    src: chruby.sh
+    dest: /etc/profile.d/chruby.sh

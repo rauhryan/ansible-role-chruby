@@ -1,0 +1,4 @@
+---
+- hosts: all
+  roles:
+    - { role: role_under_test, become: yes, ansible_roles_to_install: ['geerlingguy.java', 'geerlingguy.nginx'] }
