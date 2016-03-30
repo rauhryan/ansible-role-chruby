@@ -4,6 +4,12 @@
     url: http://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz
     dest: /tmp/chruby-{{ chruby_version }}.tar.gz
 
+- name: Create chruby temp destination directory
+  file:
+    path: /tmp/chruby-{{ chruby_version }}
+    state: directory
+    mode: "0755"
+
 - name: Untar chruby
   unarchive:
     src: /tmp/chruby-{{ chruby_version }}.tar.gz
