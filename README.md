@@ -18,5 +18,5 @@ chruby_version: 0.3.9
 ```
   - hosts: all
     roles:
-      - { role: ferrarimarco.chruby, become: yes }
+      - ferrarimarco.chruby
 ```
