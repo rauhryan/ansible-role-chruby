@@ -24,10 +24,11 @@
     state: directory
     mode: "0755"
 
-- name: Untar chruby
+- name: Unarchive chruby package
   unarchive:
     src: /tmp/chruby-{{ chruby_version }}.tar.gz
-    dest: /tmp/chruby-{{ chruby_version }}
+    dest: /tmp
+    creates: /tmp/chruby-{{ chruby_version }}/Makefile
 
 - name: Check if chruby is already installed
   stat:
@@ -36,11 +37,13 @@
 
 - name: Run chruby install target
   command: make install
+  become: yes
   args:
     chdir: /tmp/chruby-{{ chruby_version }}
   when: chruby_path.stat.exists == false
 
 - name: Deploy chruby autoload script
+  become: yes
   copy:
     src: chruby.sh
     dest: /etc/profile.d/chruby.sh
