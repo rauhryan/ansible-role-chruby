@@ -1,4 +1,18 @@
 ---
+- name: Ensure required packages are installed (apt)
+  become: true
+  action: apt pkg={{ item }} state=installed
+  with_items:
+    - git-core
+    - build-essential
+    - libsqlite3-dev
+    - libxslt1-dev
+    - libxml2-dev
+    - zlib1g-dev
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+
 - name: Download chruby
   get_url:
     url: http://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz
