@@ -22,6 +22,7 @@
   unarchive:
     src: /tmp/chruby-{{ chruby_version }}.tar.gz
     dest: /tmp
+    copy: no
     creates: /tmp/chruby-{{ chruby_version }}/Makefile
 
 - name: Check if chruby is already installed
